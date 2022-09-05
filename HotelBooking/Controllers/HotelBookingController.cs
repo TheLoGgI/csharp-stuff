@@ -32,6 +32,7 @@ public class HotelBookingController
     /// <param name="budget">Budget for rooms</param>
     public List<Room> GetValidRooms(int? adults, int? children, int? budget)
     {
+        Console.WriteLine("Adults: " + adults + " - " + "children: " + children + " - " + "budget: " + budget);
         return _dispatcher.Dispatch(new GetValidRoomsQuery(adults, children, budget) );
     }
     

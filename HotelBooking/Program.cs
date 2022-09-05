@@ -79,7 +79,7 @@ public class Program
 
 
         var validRoomsWithBudet = hotel.GetValidRooms(2, 1, null);
-        
+        Console.WriteLine("validRooms: " + validRoomsWithBudet.Count);
         // Method 'GetValidRooms' has 3 parameter(s) but is invoked with 1 argument(s)
         // var validRoomsWithBudet = hotel.GetValidRooms(500);
         foreach (var room in validRoomsWithBudet)

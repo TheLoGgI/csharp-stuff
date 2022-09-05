@@ -25,8 +25,9 @@ public class HotelRepository : IHotelRepository
     
     public List<Room> GetValidRooms(int adults, int children, int? budget)
     {
-            // Cannot resolve symbol 'Value' (children and adults)
-            var peopleInTotal = adults.Value + children.Value;
+        Console.WriteLine("Adults: " + adults + " - " + "children: " + children + " - " + "budget: " + budget);
+            var peopleInTotal = adults + children;
+        Console.WriteLine("peopleInTotal: " + peopleInTotal);
             
             var validRooms = _collection.Where(room =>
             {

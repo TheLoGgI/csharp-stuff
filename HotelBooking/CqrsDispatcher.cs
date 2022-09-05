@@ -10,17 +10,19 @@ public class CqrsDispatcher
     public CqrsDispatcher(List<Room> rooms)
     {
         _collection = rooms;
-        Console.WriteLine($"Valid rooms Total rooms: {rooms}");
-        foreach (var room in rooms)
-        {
-            Console.WriteLine( $" #{room.nr} on floor {room.floor}, has room for {room.hasRoomFor} people. price {room.price}");
-
-        }
+        Console.WriteLine($"Valid rooms Total rooms: {rooms.Count}");
+        // foreach (var room in rooms)
+        // {
+        //     Console.WriteLine( $" #{room.nr} on floor {room.floor}, has room for {room.hasRoomFor} people. price {room.price}");
+        //
+        // }
 
     }
 
     public List<Room> Dispatch(GetValidRoomsQuery query)
     {
+        Console.WriteLine("testing");
+        // Console.WriteLine("Adults: " + query.adults + " - " + "children: " + query.children + " - " + "budget: " + query.budget);
         return new GetValidRoomsQueryHandler(_collection).Handle(query);
     }
     public List<Room> Dispatch(GetAvaliableRoomsQuery query)

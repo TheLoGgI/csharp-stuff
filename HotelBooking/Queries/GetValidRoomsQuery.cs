@@ -11,13 +11,20 @@ public class GetValidRoomsQuery
     
     public GetValidRoomsQuery(int? adults, int? children, int? budget)
     {
+        // Console.WriteLine("Adults: " + adults + " - " + "children: " + children + " - " + "budget: " + budget);
         Adults = adults;
         Children = children;
         Budget = budget;
-
-        if (!(adults != null && children != null) || !(budget != null))
+        
+        
+        if (!(adults != null && children != null))
             throw new ArgumentException(
                 "Must either provide both adults, children and optionally budget, or only budget");
+        
+        if (adults == null && children == null && budget != null)
+            throw new ArgumentException(
+                "Must either provide both adults, children and optionally budget, or only budget");
+
     }
 }
 
@@ -33,16 +40,24 @@ public class GetValidRoomsQueryHandler
     
     public List<Room> Handle(GetValidRoomsQuery query)
     {
+        Console.WriteLine(query);
+        
+        // Console.WriteLine("Adults: " + adults + " - " + "children: " + children + " - " + "budget: " + budget);
         
         if (query.Adults != null && query.Children != null)
         {
+            var adults = query.Adults ?? 0;
+            var children = query.Children ?? 0;
             // Argument type 'System.Nullable<int>' is not assignable to parameter type 'int'
-            return _hotelRepository.GetValidRooms(query.Adults, query.Children, query.Budget);
+            var validRooms = _hotelRepository.GetValidRooms(adults, children, query.Budget);
+            Console.WriteLine(validRooms.Count);
+            return validRooms;
         }
         else
         {
+            var budget = query.Budget ?? 0;
             // Argument type 'System.Nullable<int>' is not assignable to parameter type 'int'
-            return _hotelRepository.GetValidRooms(query.Budget);
+            return _hotelRepository.GetValidRooms(budget);
         }
     }
 }
