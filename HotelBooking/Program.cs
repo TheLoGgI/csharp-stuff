@@ -78,10 +78,10 @@ public class Program
             4);
 
 
-        // var validRooms = hotel.GetValidRooms(2, 1);
+        var validRoomsWithBudet = hotel.GetValidRooms(2, 1, null);
         
         // Method 'GetValidRooms' has 3 parameter(s) but is invoked with 1 argument(s)
-        var validRoomsWithBudet = hotel.GetValidRooms(500);
+        // var validRoomsWithBudet = hotel.GetValidRooms(500);
         foreach (var room in validRoomsWithBudet)
         {
             Console.WriteLine( $" #{room.nr} on floor {room.floor}, has room for {room.hasRoomFor} people. price {room.price}");

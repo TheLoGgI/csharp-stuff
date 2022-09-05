@@ -13,11 +13,6 @@ public class HotelBookingController
     
     private readonly CqrsDispatcher _dispatcher;
 
-    // public void initController(Hotel hotel)
-    // {
-    //     _dispatcher = new CqrsDispatcher(hotel.rooms);
-    // }
-    
     public HotelBookingController(string name, List<Room> rooms, string city, string country, int rating)
     {
         // var hotel = new Hotel(name,
