@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using HotelBooking.Models;
+using HotelBooking.Queries;
 using HotelBooking.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,12 @@ public class HotelBookingController
     
     public HotelBookingController(string name, List<Room> rooms, string city, string country, int rating)
     {
+        // var hotel = new Hotel(name,
+        //     rooms,
+        //     city,
+        //     country,
+        //     rating);
+        
         _dispatcher = new CqrsDispatcher(rooms);
     }
 
@@ -28,20 +35,16 @@ public class HotelBookingController
     /// <param name="adults">Number of adult people</param>
     /// <param name="children">Number of children</param>
     /// <param name="budget">Budget for rooms</param>
-    public List<Room> GetValidRooms(int adults, int children, int budget = 0)
+    public List<Room> GetValidRooms(int? adults, int? children, int? budget)
     {
-        return _dispatcher.Dispatch(adults, children, budget);
+        return _dispatcher.Dispatch(new GetValidRoomsQuery(adults, children, budget) );
     }
     
-    /// <summary>
-    ///     Find valid hotel rooms for people
-    /// </summary>
-    /// <param name="budget">Budget for room(s)</param>
-    public List<Room> GetValidRooms(int budget)
+    public List<Room> GetAvailableRooms()
     {
-        return _dispatcher.Dispatch(budget);
+        return _dispatcher.Dispatch(new GetAvaliableRoomsQuery());
+    
     }
-
 
     /// <summary>
     ///     Find hotel rooms that match peoples expecstaions

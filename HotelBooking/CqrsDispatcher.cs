@@ -1,7 +1,9 @@
 ﻿using HotelBooking.Models;
+using HotelBooking.Queries;
 using HotelBooking.Repositories;
 
 namespace HotelBooking;
+
 public class CqrsDispatcher
 {
     private readonly List<Room> _collection;
@@ -11,44 +13,53 @@ public class CqrsDispatcher
         Console.WriteLine($"Valid rooms Total rooms: {rooms}");
         foreach (var room in rooms)
         {
-        Console.WriteLine( $" #{room.nr} on floor {room.floor}, has room for {room.hasRoomFor} people. price {room.price}");
-            
+            Console.WriteLine( $" #{room.nr} on floor {room.floor}, has room for {room.hasRoomFor} people. price {room.price}");
+
         }
-        
+
     }
-    
-    public List<Room> Dispatch(int adults, int children, int budget = 0) /*where T : class*/
+
+    public List<Room> Dispatch(GetValidRoomsQuery query)
     {
-
-        return new GetValidRoomsQueryHandler(_collection).Handle(adults, children, budget);
-
+        return new GetValidRoomsQueryHandler(_collection).Handle(query);
     }
-    public List<Room> Dispatch(int budget)
+    public List<Room> Dispatch(GetAvaliableRoomsQuery query)
     {
-
-        return new GetValidRoomsQueryHandler(_collection).Handle(budget);
-
+        return new GetAvaliableRoomsQueryHandler(_collection).Handle();
     }
-
 }
 
-public class GetValidRoomsQueryHandler
-{
-    private readonly IHotelRepository _hotelRepository;
 
-    public GetValidRoomsQueryHandler(List<Room> rooms)
-    {
-        _hotelRepository = new HotelRepository(rooms);
-    }
-    
-    public List<Room> Handle(int adults, int children, int budget = 0)
-    {
-
-        return _hotelRepository.GetValidRooms(adults, children, budget);
-    }
-    
-    public List<Room> Handle(int budget)
-    {
-        return _hotelRepository.GetValidRooms(budget);
-    }
-}
+// public class CqrsDispatcher
+// {
+//     private readonly List<Room> _collection;
+//     public CqrsDispatcher(List<Room> rooms)
+//     {
+//         _collection = rooms;
+//         Console.WriteLine($"Valid rooms Total rooms: {rooms.Count}");
+//         // foreach (var room in rooms)
+//         // {
+//         // Console.WriteLine( $" #{room.nr} on floor {room.floor}, has room for {room.hasRoomFor} people. price {room.price}");
+//         //     
+//         // }
+//         
+//     }
+//     
+//     public List<Room> Dispatch(string key, object payload) /*where T : class*/
+//     {
+//         
+//         var dispatcher = 
+//
+//         return new GetValidRoomsQueryHandler(_collection).Handle(payload.adults, payload.children, payload.budet);
+//     
+//     }
+//     
+//     // public List<Room> Dispatch(int? adults, int? children, int? budget ) /*where T : class*/
+//     // {
+//     //
+//     //     return new GetValidRoomsQueryHandler(_collection).Handle(adults, children, budget);
+//     //
+//     // }
+//
+// }
+//

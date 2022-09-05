@@ -10,45 +10,46 @@ public class HotelRepository : IHotelRepository
     {
         _collection = collection;
     }
-    
+
     public List<Room> GetValidRooms(int budget)
     {
-
-        var validRooms = _collection.Where(room =>
+        var roomsWithValidBudget = _collection.Where(room =>
         {
             if (room.isBooked) return false;
-            return budget <= room.price;
-        }).ToList();
-        
-        Console.WriteLine(validRooms);
+            return  budget <= room.price; 
 
-        return validRooms;
+        }).ToList();        
+
+        return roomsWithValidBudget;
     }
-
     
-    public List<Room> GetValidRooms(int adults, int children, int budget = 0)
+    public List<Room> GetValidRooms(int adults, int children, int? budget)
     {
-        int peopleInTotal = adults + children;
+            // Cannot resolve symbol 'Value' (children and adults)
+            var peopleInTotal = adults.Value + children.Value;
+            
+            var validRooms = _collection.Where(room =>
+            {
+                if (room.isBooked) return false;
+                if (budget != null) return peopleInTotal <= room.hasRoomFor && budget <= room.price; 
+                
+                return peopleInTotal <= room.hasRoomFor;
 
-        var validRooms = _collection.Where(room =>
-        {
-            if (room.isBooked) return false;
-            return peopleInTotal <= room.hasRoomFor;
+            }).ToList();
 
-        }).ToList();
-        
-        Console.WriteLine(validRooms);
-
-        return validRooms;
+            return validRooms;
+       
     }
+
     
+
 
     public Room BookRoom(int roomNr, int floor)
     {
         throw new NotImplementedException();
     }
 
-    public List<Room> AvailableRooms()
+    public List<Room> GetAvailableRooms()
     {
         throw new NotImplementedException();
     }

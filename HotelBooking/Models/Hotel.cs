@@ -12,12 +12,7 @@ public class Hotel : HotelBookingController
     public int rating { get;  }
 
 
-    public Hotel(string name, List<Room> rooms, string city, string country, int rating) : base(name, rooms, city, country, rating)
-    {
-        // Console.WriteLine(hotel);
-        // initController(hotel);
-    
-    }
+    public Hotel(string name, List<Room> rooms, string city, string country, int rating) : base(name, rooms, city, country, rating) { }
     
     // public Hotel() : base(hotel.name, hotel.rooms, hotel.city, hotel.country, hotel.rating)
     // {
