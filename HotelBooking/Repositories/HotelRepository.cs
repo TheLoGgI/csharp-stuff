@@ -45,9 +45,10 @@ public class HotelRepository : IHotelRepository
     
 
 
-    public Room BookRoom(int roomNr, int floor)
+    public Room BookRoom(Room room)
     {
-        throw new NotImplementedException();
+        room.isBooked = true;
+        return room;
     }
 
     public List<Room> GetAvailableRooms()

@@ -1,4 +1,5 @@
-﻿using HotelBooking.Models;
+﻿using HotelBooking.Commands;
+using HotelBooking.Models;
 using HotelBooking.Queries;
 using HotelBooking.Repositories;
 
@@ -29,6 +30,12 @@ public class CqrsDispatcher
     {
         return new GetAvaliableRoomsQueryHandler(_collection).Handle();
     }
+    
+    public Room Dispatch(BookRoomCommand query)
+    {
+        return new BookRoomCommandHandler(_collection).Handle(query);
+    }
+    
 }
 
 

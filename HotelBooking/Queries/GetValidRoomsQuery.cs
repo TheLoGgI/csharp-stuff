@@ -16,15 +16,8 @@ public class GetValidRoomsQuery
         Children = children;
         Budget = budget;
         
+        Console.WriteLine("Adults: " + adults + " - " + "children: " + children + " - " + "budget: " + budget);
         
-        if (!(adults != null && children != null))
-            throw new ArgumentException(
-                "Must either provide both adults, children and optionally budget, or only budget");
-        
-        if (adults == null && children == null && budget != null)
-            throw new ArgumentException(
-                "Must either provide both adults, children and optionally budget, or only budget");
-
     }
 }
 
@@ -42,7 +35,7 @@ public class GetValidRoomsQueryHandler
     {
         Console.WriteLine(query);
         
-        // Console.WriteLine("Adults: " + adults + " - " + "children: " + children + " - " + "budget: " + budget);
+        
         
         if (query.Adults != null && query.Children != null)
         {

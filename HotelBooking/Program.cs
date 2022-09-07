@@ -6,7 +6,7 @@ namespace HotelBooking;
 public class Program
 {
 
-    
+
     public static List<Room> hotelRooms = new List<Room>()
     {
         new()
@@ -56,11 +56,7 @@ public class Program
         },
     };
 
-    public Program()
-    {
-
-    }
-    public static void Main()
+        public static void Main()
     {
         // var hotel = new Hotel()
         // {
@@ -78,13 +74,18 @@ public class Program
             4);
 
 
-        var validRoomsWithBudet = hotel.GetValidRooms(2, 1, null);
+        // var validRoomsWithBudet = hotel.GetValidRooms(2, 1, null);
+        var validRoomsWithBudet = hotel.GetValidRooms(null, null, 500);
+        
         Console.WriteLine("validRooms: " + validRoomsWithBudet.Count);
         // Method 'GetValidRooms' has 3 parameter(s) but is invoked with 1 argument(s)
         // var validRoomsWithBudet = hotel.GetValidRooms(500);
         foreach (var room in validRoomsWithBudet)
         {
-            Console.WriteLine( $" #{room.nr} on floor {room.floor}, has room for {room.hasRoomFor} people. price {room.price}");
+            hotel.Bookroom(room);
+            var isBooked = room.isBooked ? "booked" : "unbooked";
+            Console.WriteLine( $" #{room.nr} on floor {room.floor}, has room for {room.hasRoomFor} people. price {room.price}" +
+                               $" and is {isBooked}");
             
         }
         

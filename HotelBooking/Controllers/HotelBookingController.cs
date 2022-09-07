@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using HotelBooking.Commands;
 using HotelBooking.Models;
 using HotelBooking.Queries;
 using HotelBooking.Repositories;
@@ -32,6 +33,12 @@ public class HotelBookingController
     /// <param name="budget">Budget for rooms</param>
     public List<Room> GetValidRooms(int? adults, int? children, int? budget)
     {
+
+        if (adults == null && children == null && budget != null)
+        {
+            return _dispatcher.Dispatch(new GetValidRoomsQuery(null, null,budget) );
+        }
+        
         Console.WriteLine("Adults: " + adults + " - " + "children: " + children + " - " + "budget: " + budget);
         return _dispatcher.Dispatch(new GetValidRoomsQuery(adults, children, budget) );
     }
@@ -43,15 +50,14 @@ public class HotelBookingController
     }
 
     /// <summary>
-    ///     Find hotel rooms that match peoples expecstaions
+    ///     Book room
     /// </summary>
-    /// <param name="adults">Number of adult people</param>
-    /// <param name="children">Number of children</param>
-    /// <param name="budget">Budget for rooms</param>
+    /// <param name="room">Room for booking</param>
     [HttpGet(Name = "GetHotelBooking")]
-    public List<Room> Bookroom(int adults, int children, float budget = 0)
+    public Room Bookroom(Room room)
     {
-        throw new NotImplementedException();
+        return _dispatcher.Dispatch(new BookRoomCommand(room));
+     
     }
     
     
